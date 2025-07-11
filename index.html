@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - MiniShop</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #ece9e6, #ffffff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-container {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .login-container h2 {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .login-container button {
+      width: 100%;
+      padding: 12px;
+      background-color: #f08804;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 12px;
+    }
+
+    .login-container button:hover {
+      background-color: #e07a00;
+    }
+
+    .login-container .signup-link {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .login-container .signup-link a {
+      color: #0073e6;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login-container">
+    <h2>Sign In to MiniShop</h2>
+    <form id="login-form">
+      <label for="email">Email or Username</label>
+      <input id="email" type="text" placeholder="Enter your email or username" required />
+
+      <div style="position: relative;">
+        <input id="password" type="password" placeholder="Enter your password" required
+          style="width: 100%; padding-right: 40px;" />
+        <i class="fa-solid fa-eye" id="togglePassword" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+            cursor: pointer; color: #999;" title="Show Password"></i>
+      </div>
+
+      <button type="submit">Login</button>
+    </form>
+    <div class="signup-link">
+      Don't have an account? <a href="#">Sign up</a>
+    </div>
+  </div>
+
+  <script>
+    let attempts = 3;
+    const MAX_ATTEMPTS = 3;
+    const LOCKOUT_TIME = 10 * 1000; // 10 seconds
+
+    document.getElementById('login-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const email = document.querySelector('input[type="text"]').value.trim();
+      const password = document.querySelector('input[type="password"]').value.trim();
+      const button = document.querySelector('button');
+
+      // Check lockout
+      const lockedUntil = localStorage.getItem("lockedUntil");
+      const now = Date.now();
+
+      if (lockedUntil && now < parseInt(lockedUntil)) {
+        alert("Too many failed attempts. Please wait a few seconds.");
+        return;
+      }
+
+      // Check credentials
+      if (email === "sahab" && password === "7999") {
+        alert('Login successful');
+        localStorage.removeItem("lockedUntil");
+        window.location.href = "home.html";
+      } else {
+        attempts++;
+        if (attempts >= MAX_ATTEMPTS) {
+          const lockUntil = Date.now() + LOCKOUT_TIME;
+          localStorage.setItem("lockedUntil", lockUntil);
+          alert("Too many failed attempts. Login disabled for 10 seconds.");
+          attempts = 0;
+        } else {
+          alert(`Invalid Email or Username. Attempt ${attempts} of ${MAX_ATTEMPTS}`);
+        }
+      }
+    });
+
+    // Auto clear lockout after time
+    window.onload = () => {
+      const lockedUntil = localStorage.getItem("lockedUntil");
+      if (lockedUntil && Date.now() >= parseInt(lockedUntil)) {
+        localStorage.removeItem("lockedUntil");
+      }
+    };
+    const togglePassword = document.getElementById("togglePassword");
+    const passwordInput = document.getElementById("password");
+
+    togglePassword.addEventListener("click", () => {
+      const isHidden = passwordInput.type === "password";
+      passwordInput.type = isHidden ? "text" : "password";
+
+      togglePassword.classList.toggle("fa-eye");
+      togglePassword.classList.toggle("fa-eye-slash");
+      togglePassword.title = isHidden ? "Hide Password" : "Show Password";
+    });
+  </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Details - MiniShop</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body>
+
+  <!-- Navbar Start -->
+  <header class="navbar">
+    <div class="logo">MiniShop</div>
+    <nav class="nav-links" id="navLinks">
+
+      <a href="home.html">Home</a>
+
+      <div class="nav-search">
+        <select class="search-select">
+          <option>All</option>
+        </select>
+        <input placeholder="search Minishop" class="search-input" id="searchInput">
+        <div class="search-icon">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+      </div>
+
+
+
+      <div class="nav-singin border">
+        <a href="index.html"><i class="fa fa-user"></i> Login</a>
+        <p class="nav-second">Account & Lists</p>
+      </div>
+
+      <a href="product.html">Product</a>
+
+      <a href="order.html">Order
+        <p class="return">Return</p>
+      </a>
+
+      <a href="wishlist.html"><i class="fa-solid fa-heart"></i>Wishlist</a>
+
+      <a href="about.html">About</a>
+
+
+
+
+      <a href="#" id="cart-button"><i class="fa-solid fa-cart-shopping"></i> Cart (<span id="cart-count">0</span>)</a>
+    </nav>
+    <div class="menu-icon" id="menuIcon">&#9776;</div>
+  </header>
+  <!-- Navbar End -->
+
+  <!-- Product detail will load here -->
+  <div id="product-container"></div>
+
+  <footer>
+    <p style="text-align: center;">© 1996-2025, Minishop.com</p>
+  </footer>
+
+  <script>
+    const products = {
+      "running-shoes": {
+        name: "Running Shoes",
+        price: "₹1,099.00",
+        image: "running.jpg",
+        description: "Lightweight and breathable running shoes designed for long-distance comfort and performance.",
+        features: ["Lightweight", "Breathable mesh", "Shock absorption"]
+      },
+      "smart-watch": {
+        name: "Smart Watch",
+        price: "₹1,999.00",
+        image: "smartwatch.jpg",
+        description: "Stay connected and fit with this smart watch. Features fitness tracking, notifications, and heart rate monitoring.",
+        features: ["Heart Rate & Sleep Monitor", "Notifications & Calls", "Waterproof Design", "7-Day Battery Life"]
+      },
+      "wireless-headphones": {
+        name: "Wireless Headphones",
+        price: "₹2,499.00",
+        image: "wireless.jpg",
+        description: "High-quality wireless headphones with noise cancellation and built-in mic.",
+        features: ["Bluetooth 5.0", "20h Battery Life", "Built-in Microphone"]
+      },
+      "travel-backpack": {
+        name: "Travel Backpack",
+        price: "₹1,999.00",
+        image: "backpack.jpg",
+        description: "Durable and spacious backpack, ideal for travel, school, and outdoor use.",
+        features: ["Water-resistant material", "USB Charging Port", "Laptop Compartment", "Ergonomic Straps"]
+      },
+      "lightweight-laptop": {
+        name: "Lightweight Laptop",
+        price: "₹4,9999.00",
+        image: "laptop.jpg",
+        description: "Sleek and powerful laptop perfect for work and travel.",
+        features: ["Intel i7 12th Gen", "16GB RAM / 512GB SSD", "Backlit Keyboard", "1.2 kg", "12-Hour Battery Life"]
+      },
+      "dslr-camera": {
+        name: "DSLR Camera",
+        price: "₹1,0099.00",
+        image: "cameras.jpg",
+        description: "Capture stunning photos with this DSLR camera for enthusiasts and professionals.",
+        features: ["24.2 MP CMOS Sensor", "Full HD 1080p", "Interchangeable Lenses", "Wi-Fi & Bluetooth", "3-inch LCD"]
+      },
+      "smart-phone": {
+        name: "Smart Phone",
+        price: "₹1,9999.00",
+        image: "smartphone.jpg",
+        description: "Latest generation smartphone with powerful features and stylish design.",
+        features: ["6.5\" Full HD Display", "128GB / 6GB RAM", "50MP Triple Camera", "5000mAh Battery"]
+      },
+      "electronics": {
+        name: "Electronics",
+        price: "₹999.00",
+        image: "electronics.jpg",
+        description: "Bundle of essential electronics including headphones, cables, and chargers.",
+        features: ["Headphones with Mic", "3-in-1 Charging Cable", "Fast Wall Adapter", "Travel Pouch"]
+      },
+      "kitchen": {
+        name: "Kitchen",
+        price: "₹1,999.00",
+        image: "kitchen.jpg",
+        description: "Essential kitchen set with utensils, knives, and containers.",
+        features: ["12-piece Stainless Steel", "Non-stick Utensils", "Dishwasher Safe", "Heat-resistant Handles"]
+      }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const productId = params.get("product");
+
+    const product = products[productId];
+    const container = document.getElementById("product-container");
+
+    if (product) {
+      container.innerHTML = `
+      <section class="product-detail">
+        <div class="product-container">
+          <div class="product-image">
+            <img src="${product.image}" alt="${product.name}" />
+          </div>
+          <div class="product-info">
+            <h2>${product.name}</h2>
+            <p class="price">${product.price}</p>
+            <p class="description">${product.description}</p>
+            <ul class="features">
+              ${product.features.map(f => `<li><i class="fa fa-check-circle"></i> ${f}</li>`).join("")}
+            </ul>
+            <button class="add-to-cart-btn">Add to Cart</button>
+          </div>
+        </div>
+      </section>
+    `;
+    } else {
+      container.innerHTML = `<p style="text-align:center; padding: 2rem;">Product not found.</p>`;
+    }
+  </script>
+
+</body>
+
+</html>

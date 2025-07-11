@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>My Wishlist - MiniShop</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="wishlist.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+  <!-- Navbar Start -->
+  <header class="navbar">
+    <div class="logo">MiniShop</div>
+    <nav class="nav-links" id="navLinks">
+
+      <a href="home.html">Home</a>
+
+      <div class="nav-search">
+        <select class="search-select">
+          <option>All</option>
+        </select>
+        <input placeholder="search Minishop" class="search-input" id="searchInput">
+        <div class="search-icon">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+      </div>
+
+
+
+      <div class="nav-singin border">
+        <a href="index.html"><i class="fa fa-user"></i> Login</a>
+        <p class="nav-second">Account & Lists</p>
+      </div>
+
+      <a href="product.html">Product</a>
+
+      <a href="order.html">Order
+        <p class="return">Return</p>
+      </a>
+
+      <a href="wishlist.html"><i class="fa-solid fa-heart"></i>Wishlist</a>
+
+      <a href="about.html">About</a>
+
+
+
+
+      <a href="#" id="cart-button"><i class="fa-solid fa-cart-shopping"></i> Cart (<span id="cart-count">0</span>)</a>
+    </nav>
+    <div class="menu-icon" id="menuIcon">&#9776;</div>
+  </header>
+  <!-- Navbar End -->
+
+  <section class="wishlist-section">
+    <h2>Your Wishlist</h2>
+    <div id="wishlist-container" class="product-grid"></div>
+  </section>
+  <script>document.addEventListener('DOMContentLoaded', () => {
+      const wishlistContainer = document.getElementById('wishlist-container');
+      const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+      if (wishlist.length === 0) {
+        wishlistContainer.innerHTML = '<p>Your wishlist is empty.</p>';
+        return;
+      }
+
+      wishlist.forEach(item => {
+        const card = document.createElement('div');
+        card.classList.add('product-card');
+
+        card.innerHTML = `
+      <img src="${item.imgSrc}" alt="${item.title}">
+      <h3>${item.title}</h3>
+      <p>${item.price}</p>
+      <button onclick="removeFromWishlist('${item.title}')">Remove</button>
+    `;
+
+        wishlistContainer.appendChild(card);
+      });
+    });
+
+    function removeFromWishlist(title) {
+      let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+      wishlist = wishlist.filter(item => item.title !== title);
+      localStorage.setItem('wishlist', JSON.stringify(wishlist));
+      location.reload();
+    }
+  </script>
+
+</body>
+
+</html>
