@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Products - MiniShop</title>
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="script.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="logo">MiniShop</div>
+        <nav class="nav-links" id="navLinks">
+
+            <a href="home.html">Home</a>
+
+            <div class="nav-search">
+                <select class="search-select">
+                    <option>All</option>
+                </select>
+                <input placeholder="search Minishop" class="search-input" id="searchInput">
+                <div class="search-icon">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+            </div>
+
+            <div class="nav-singin border">
+                <a href="index.html"><i class="fa fa-user"></i> Login</a>
+                <p class="nav-second">Account & Lists</p>
+            </div>
+
+            <a href="product.html">Product</a>
+
+            <a href="order.html">Order
+                <p class="return">Return</p>
+            </a>
+
+            <a href="wishlist.html"><i class="fa-solid fa-heart"></i>Wishlist</a>
+
+            <a href="about.html">About</a>
+
+            <a href="#" id="cart-button"><i class="fa-solid fa-cart-shopping"></i> Cart (<span
+                        id="cart-count">0</span>)</a>
+        </nav>
+        <div class="menu-icon" id="menuIcon">&#9776;</div>
+    </header>
+    <main class="product-section">
+        <h2>All Products</h2>
+        <div class="product-grid">
+
+            <div class="product-card">
+                <div class="product-image">
+                    <a href="product-detail.html?product=wireless-headphones">
+                        <img src="wireless.jpg" alt="Wireless Headphones" />
+                    </a>
+                    <button class="wishlist-btn" title="Add to Wishlist">
+                        <i class="fa-regular fa-heart"></i>
+                    </button>
+                </div>
+                <div class="product-info">
+                    <h3>Wireless Headphones</h3>
+                    <a
+                        href="https://www.flipkart.com/search?q=wireless+head+phone+with+mic&sid=0pm%2Cfcn&as=on&as-show=on&otracker=AS_QueryStore_OrganicAutoSuggest_2_19_na_na_na&otracker1=AS_QueryStore_OrganicAutoSuggest_2_19_na_na_na&as-pos=2&as-type=RECENT&suggestionId=wireless+head+phone+with+mic%7CHeadset&requestId=81768ec0-4923-46b6-aaa6-dc21d4217e2d&as-searchtext=wireless%20head%20phone">
+                        <p>See More</p>
+                    </a>
+                    <div class="rating">
+                        ★★★★☆ (4.2)
+                    </div>
+                    <p class="price">₹2,499</p>
+                    <button class="add-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <a href="product-detail.html?product=running-shoes">
+                        <img src="running.jpg" alt="Running Shoes" />
+                    </a>
+                    <button class="wishlist-btn" title="Add to Wishlist">
+                        <i class="fa-regular fa-heart"></i>
+                    </button>
+                </div>
+                <div class="product-info">
+                    <h3>Running Shoes</h3>
+                    <a
+                        href="https://www.flipkart.com/search?q=running+shoes&sid=osp%2Ciko&as=on&as-show=on&otracker=AS_QueryStore_OrganicAutoSuggest_2_4_na_na_na&otracker1=AS_QueryStore_OrganicAutoSuggest_2_4_na_na_na&as-pos=2&as-type=RECENT&suggestionId=running+shoes%7CWomen%27s+Footwear&requestId=4916435c-4198-48a7-b365-49babfe0b4c4&as-searchtext=running%20shoes">
+                        <p>See More</p>
+                    </a>
+                    <div class="rating">
+                        ★★★★☆ (4.3)
+                    </div>
+                    <p class="price">₹1,099</p>
+                    <button class="add-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <a href="product-detail.html?product=smart-watch">
+                        <img src="smartwatch.jpg" alt="Smart Watch" />
+                    </a>
+                    <button class="wishlist-btn" title="Add to Wishlist">
+                        <i class="fa-regular fa-heart"></i>
+                    </button>
+                </div>
+                <div class="product-info">
+                    <h3>Smart Watch</h3>
+                    <a
+                        href="https://www.flipkart.com/ajy/~cs-7d5gd723be/pr?sid=ajy&collection-tab-name=BBD+2024+Noise+Smartwatches&pageCriteria=default&param=5781&hpid=Y8tEWNmThOXtFwc8qea15Kp7_Hsxr70nj65vMAAFKlc%3D&ctx=eyJjYXJkQ29udGV4dCI6eyJhdHRyaWJ1dGVzIjp7InZhbHVlQ2FsbG91dCI6eyJtdWx0aVZhbHVlZEF0dHJpYnV0ZSI6eyJrZXkiOiJ2YWx1ZUNhbGxvdXQiLCJpbmZlcmVuY2VUeXBlIjoiVkFMVUVfQ0FMTE9VVCIsInZhbHVlcyI6WyJGcm9tIOKCuTEsMDk5Il0sInZhbHVlVHlwZSI6Ik1VTFRJX1ZBTFVFRCJ9fSwiaGVyb1BpZCI6eyJzaW5nbGVWYWx1ZUF0dHJpYnV0ZSI6eyJrZXkiOiJoZXJvUGlkIiwiaW5mZXJlbmNlVHlwZSI6IlBJRCIsInZhbHVlIjoiU01XR0dLVDVGWVFITlJKUCIsInZhbHVlVHlwZSI6IlNJTkdMRV9WQUxVRUQifX0sInRpdGxlIjp7Im11bHRpVmFsdWVkQXR0cmlidXRlIjp7ImtleSI6InRpdGxlIiwiaW5mZXJlbmNlVHlwZSI6IlRJVExFIiwidmFsdWVzIjpbIk5vaXNlIFNtYXJ0d2F0Y2hlcyJdLCJ2YWx1ZVR5cGUiOiJNVUxUSV9WQUxVRUQifX19fX0%3D">
+                        <p>See More</p>
+                    </a>
+                    <div class="rating">
+                        ★★★★☆ (4.0)
+                    </div>
+                    <p class="price">₹1,999</p>
+                    <button class="add-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <a href="product-detail.html?product=travel-backpack">
+                        <img src="backpack.jpg" alt="Travel Backpack" />
+                    </a>
+                    <button class="wishlist-btn" title="Add to Wishlist">
+                        <i class="fa-regular fa-heart"></i>
+                    </button>
+                </div>
+                <div class="product-info">
+                    <h3>Travel Backpack</h3>
+                    <a
+                        href="https://www.flipkart.com/search?q=travel+backpack&otracker=search&otracker1=search&marketplace=FLIPKART&as-show=off&as=off">
+                        <p>See More</p>
+                    </a>
+                    <div class="rating">
+                        ★★★★☆ (4.1)
+                    </div>
+                    <p class="price">₹1,999</p>
+                    <button class="add-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <a href="product-detail.html?product=lightweight-laptop">
+                        <img src="laptop.jpg" alt="Lightweight Laptop" />
+                    </a>
+                    <button class="wishlist-btn" title="Add to Wishlist">
+                        <i class="fa-regular fa-heart"></i>
+                    </button>
+                </div>
+                <div class="product-info">
+                    <h3>Lightweight Laptop</h3>
+                    <a
+                        href="https://www.flipkart.com/search?q=light+weight+laptops&sid=6bo%2Cb5g&as=on&as-show=on&otracker=AS_QueryStore_OrganicAutoSuggest_1_14_sc_na_na&otracker1=AS_QueryStore_OrganicAutoSuggest_1_14_sc_na_na&as-pos=1&as-type=RECENT&suggestionId=light+weight+laptops%7CLaptops&requestId=4d85bed2-8a64-4b1f-b5c9-6670668eb69f&as-searchtext=lightwiehgt%20lap">
+                        <p>See More</p>
+                    </a>
+                    <div class="rating">
+                        ★★★★☆ (4.4)
+                    </div>
+                    <p class="price">₹4,9999</p>
+                    <button class="add-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <a href="product-detail.html?product=dslr-camera">
+                        <img src="cameras.jpg" alt="DSLR Camera" />
+                    </a>
+                    <button class="wishlist-btn" title="Add to Wishlist">
+                        <i class="fa-regular fa-heart"></i>
+                    </button>
+                </div>
+                <div class="product-info">
+                    <h3>DSLR Camera</h3>
+                    <a
+                        href="https://www.flipkart.com/search?q=dslr+camera&sid=jek%2Cp31%2Ctrv&as=on&as-show=on&otracker=AS_QueryStore_OrganicAutoSuggest_1_4_na_na_na&otracker1=AS_QueryStore_OrganicAutoSuggest_1_4_na_na_na&as-pos=1&as-type=RECENT&suggestionId=dslr+camera%7CDSLR+%26+Mirrorless&requestId=50b8290e-d043-4b32-b4dd-69f15009928b&as-searchtext=dslr%20camera">
+                        <p>See More</p>
+                    </a>
+                    <div class="rating">
+                        ★★★★★ (4.5)
+                    </div>
+                    <p class="price">₹1,0099</p>
+                    <button class="add-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <a href="product-detail.html?product=smart-phone">
+                        <img src="smartphone.jpg" alt="Smart Phone" />
+                    </a>
+                    <button class="wishlist-btn" title="Add to Wishlist">
+                        <i class="fa-regular fa-heart"></i>
+                    </button>
+                </div>
+                <div class="product-info">
+                    <h3>Smart Phone</h3>
+                    <a
+                        href="https://www.flipkart.com/search?q=smart%20phone&otracker=search&otracker1=search&marketplace=FLIPKART&as-show=on&as=off">
+                        <p>See More</p>
+                    </a>
+                    <div class="rating">
+                        ★★★★☆ (4.2)
+                    </div>
+                    <p class="price">₹1,9999</p>
+                    <button class="add-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <a href="product-detail.html?product=electronics">
+                        <img src="electronics.jpg" alt="Electronics" />
+                    </a>
+                    <button class="wishlist-btn" title="Add to Wishlist">
+                        <i class="fa-regular fa-heart"></i>
+                    </button>
+                </div>
+                <div class="product-info">
+                    <h3>Electronics</h3>
+                    <a
+                        href="https://www.flipkart.com/search?q=electronics&otracker=search&otracker1=search&marketplace=FLIPKART&as-show=on&as=off">
+                        <p>See More</p>
+                    </a>
+                    <div class="rating">
+                        ★★★★☆ (4.0)
+                    </div>
+                    <p class="price">₹999</p>
+                    <button class="add-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <a href="product-detail.html?product=kitchen">
+                        <img src="kitchen.jpg" alt="Kitchen" />
+                    </a>
+                    <button class="wishlist-btn" title="Add to Wishlist">
+                        <i class="fa-regular fa-heart"></i>
+                    </button>
+                </div>
+                <div class="product-info">
+                    <h3>Kitchen</h3>
+                    <a
+                        href="https://www.flipkart.com/search?q=kitchen%20set&otracker=search&otracker1=search&marketplace=FLIPKART&as-show=on&as=off">
+                        <p>See More</p>
+                    </a>
+                    <div class="rating">
+                        ★★★★☆ (4.2)
+                    </div>
+                    <p class="price">₹1,999</p>
+                    <button class="add-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <div id="cart-modal" class="cart-modal hidden">
+        <div class="cart-content">
+            <h3>Your Cart</h3>
+            <ul id="cart-items-list"></ul>
+            <div class="shipping-address">
+                <h4>Shipping Address:</h4>
+                <input type="text" placeholder="Full Name" required><br>
+                <input type="text" placeholder="Phone Number" required><br>
+                <input type="text" placeholder="Address Line 1" required><br>
+                <input type="text" placeholder="Address Line 2"><br>
+                <input type="text" placeholder="City" required><br>
+                <input type="text" placeholder="Pincode" required><br>
+                <input type="text" placeholder="State" required><br>
+            </div>
+
+
+            <div id="payment-method-section">
+                <h4>Select Payment Method:</h4>
+                <label><input type="radio" name="payment-method" value="cod" checked> Cash on Delivery</label><br>
+                <label><input type="radio" name="payment-method" value="online"> Online Payment</label>
+            </div>
+
+            <div id="online-payment-options" style="display:none; margin-top: 10px;">
+                <p>Select Payment App:</p>
+                <label><input type="radio" name="payment-app" value="phonepe"> PhonePe</label><br>
+                <label><input type="radio" name="payment-app" value="paytm"> Paytm</label><br>
+                <label><input type="radio" name="payment-app" value="gpay"> Google Pay</label><br>
+            </div>
+
+            <div id="cart-footer" style="margin-top: 15px;">
+                <button id="checkout-btn">Proceed to Pay</button>
+                <button id="close-cart">Close</button>
+            </div>
+            <p id="payment-message" style="margin-top:10px;"></p>
+
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="foot-panel1">Back to top</div>
+        <div class="foot-panel2">
+            <ul>
+                <p>About</p>
+                <a href="#">About MiniShop</a>
+                <a href="#">Careers</a>
+                <a href="#">Blog</a>
+            </ul>
+            <ul>
+                <p>Help</p>
+                <a href="#">Shipping</a>
+                <a href="#">Returns</a>
+                <a href="#">Support</a>
+            </ul>
+            <ul>
+                <p>Connect</p>
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
+                <a href="#">Twitter</a>
+            </ul>
+        </div>
+        <div class="foot-panel4">
+            <div class="pages">
+                <a href="#">Conditions of Use</a>
+                <a href="#">Privacy Notice</a>
+                <a href="#">Cookies</a>
+            </div>
+            <div class="copyright">
+                © 1996-2025, MiniShop.com, Inc. or its affiliates
+            </div>
+        </div>
+    </footer>
+    <script>
+        
+    </script>
+</body>
+
+</html>

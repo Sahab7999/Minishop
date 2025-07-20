@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>MiniShop - Orders</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    
+
+    input,
+    button {
+      padding: 10px;
+      margin: 10px 0;
+      width: 100%;
+      max-width: 300px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .order-item {
+      background: #f9f9f9;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+    }
+
+    .order-item button {
+      background-color: #ff6b6b;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .order-item button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<!-- Navbar Start -->
+<header class="navbar">
+  <div class="logo">MiniShop</div>
+  <nav class="nav-links" id="navLinks">
+
+    <a href="home.html">Home</a>
+
+
+    <div class="nav-singin border">
+      <a href="index.html"><i class="fa fa-user"></i> Login</a>
+      <p class="nav-second">Account & Lists</p>
+    </div>
+
+    <a href="product.html">Product</a>
+
+    <a href="order.html">Order
+      <p class="return">Return</p>
+    </a>
+
+    <a href="wishlist.html"><i class="fa-solid fa-heart"></i>Wishlist</a>
+
+    <a href="about.html">About</a>
+
+
+
+
+    <a href="#" id="cart-button"><i class="fa-solid fa-cart-shopping"></i> Cart (<span id="cart-count">0</span>)</a>
+  </nav>
+  <div class="menu-icon" id="menuIcon">&#9776;</div>
+</header>
+<!-- Navbar End -->
+
+<body>
+  <h2>🛍️ Place Your Order</h2>
+  <input type="text" id="name" placeholder="Your Name" />
+  <input type="text" id="product" placeholder="Product Name" />
+  <input type="text" id="address" placeholder="Delivery Address" />
+  <button onclick="placeOrder()">Place Order</button>
+
+  <h3>📦 Your Orders</h3>
+  <div id="orderList"></div>
+
+  <script>
+    function getOrders() {
+      return JSON.parse(localStorage.getItem("orders") || "[]");
+    }
+
+    function saveOrders(orders) {
+      localStorage.setItem("orders", JSON.stringify(orders));
+    }
+
+    function placeOrder() {
+      const name = document.getElementById("name").value.trim();
+      const product = document.getElementById("product").value.trim();
+      const address = document.getElementById("address").value.trim();
+
+      if (!name || !product || !address) {
+        alert("Please fill all fields.");
+        return;
+      }
+
+      const now = new Date();
+      const order = {
+        id: Date.now(),
+        name,
+        product,
+        address,
+        status: "Ordered",
+        date: now.toISOString() // Save ISO date format
+      };
+
+      const orders = getOrders();
+      orders.push(order);
+      saveOrders(orders);
+      displayOrders();
+    }
+
+    function requestReturn(id) {
+      const orders = getOrders();
+      const order = orders.find(o => o.id === id);
+
+      if (order) {
+        const orderDate = new Date(order.date);
+        const now = new Date();
+        const diffDays = Math.floor((now - orderDate) / (1000 * 60 * 60 * 24));
+
+        if (diffDays > 7) {
+          alert("Return period expired. Cannot return after 7 days.");
+          return;
+        }
+
+        if (order.status === "Ordered") {
+          order.status = "Return Requested";
+          saveOrders(orders);
+          displayOrders();
+          alert("Return requested.");
+        }
+      }
+    }
+
+    function displayOrders() {
+      const orders = getOrders();
+      const list = document.getElementById("orderList");
+      list.innerHTML = "";
+
+      orders.forEach(o => {
+        const div = document.createElement("div");
+        div.className = "order-item";
+
+        const orderDate = new Date(o.date);
+        const now = new Date();
+        const diffDays = Math.floor((now - orderDate) / (1000 * 60 * 60 * 24));
+        const isReturnable = diffDays <= 7 && o.status === "Ordered";
+
+        div.innerHTML = `
+          <strong>Product:</strong> ${o.product}<br/>
+          <strong>Name:</strong> ${o.name}<br/>
+          <strong>Address:</strong> ${o.address}<br/>
+          <strong>Order Date:</strong> ${orderDate.toLocaleDateString()}<br/>
+          <strong>Status:</strong> ${o.status}<br/>
+          ${o.status === "Ordered"
+            ? `<button onclick="requestReturn(${o.id})" ${!isReturnable ? "disabled" : ""}>Request Return</button>`
+            : ""
+          }
+          ${!isReturnable && o.status === "Ordered" ? `<br/><em>Return expired (after 7 days)</em>` : ""}
+        `;
+        list.appendChild(div);
+      });
+    }
+
+    window.onload = displayOrders;
+  </script>
+</body>
+
+</html>

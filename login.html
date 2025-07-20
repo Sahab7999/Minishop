@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login / Sign Up - MiniShop</title>
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="script.js"></script> <script defer src="login.js"></script> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<style>
+  /* General Body & Typography */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f4f4f4;
+    color: #333;
+    overflow-x: hidden; /* Prevent horizontal scroll due to animations */
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #232f3e;
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.navbar:hover {
+    background-color: #1a242f;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #febd69;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    transition: transform 0.3s ease-out;
+}
+
+.nav-links a {
+    color: white;
+    font-size: 1rem;
+    padding: 0.5rem 0.8rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
+    position: relative; /* For underline effect */
+}
+
+.nav-links a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+    color: #febd69;
+}
+
+/* Active navigation link for current page */
+.nav-links a.active-nav-link {
+    background-color: rgba(254, 189, 105, 0.2); /* Slightly transparent highlight */
+    color: #febd69;
+    font-weight: bold;
+}
+
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 0;
+    height: 2px;
+    background-color: #febd69;
+    transition: width 0.3s ease, transform 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: calc(100% - 1rem); /* Adjust width to fit padding */
+    transform: translateX(-50%) scaleX(1);
+}
+
+
+/* Navbar Search */
+.nav-search {
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: white;
+    border: 2px solid transparent;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.nav-search:focus-within {
+    border-color: #febd69;
+    box-shadow: 0 0 0 3px rgba(254, 189, 105, 0.5);
+}
+
+.search-select {
+    background-color: #e6e6e6;
+    border: none;
+    padding: 0.7rem;
+    border-right: 1px solid #ddd;
+    font-size: 0.9rem;
+    cursor: pointer;
+    outline: none;
+    appearance: none; /* Remove default arrow */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    padding-right: 2rem;
+}
+
+.search-input {
+    border: none;
+    padding: 0.7rem;
+    font-size: 1rem;
+    flex-grow: 1;
+    outline: none;
+}
+
+.search-icon {
+    background-color: #febd69;
+    padding: 0.7rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-icon:hover {
+    background-color: #f7a840;
+}
+
+.search-icon i {
+    color: #333;
+}
+
+/* Navbar Sign-in & Icons */
+.nav-singin {
+    padding: 0.5rem 0.8rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.nav-singin a {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: white;
+    font-size: 1rem;
+}
+
+.nav-singin .nav-second {
+    font-size: 0.8rem;
+    color: #ccc;
+    margin-top: 3px;
+}
+
+.nav-singin:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.nav-singin i {
+    font-size: 1.2rem;
+    margin-right: 5px;
+}
+
+#cart-button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    position: relative;
+    padding: 0.5rem 0.8rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#cart-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+#cart-count {
+    background-color: #febd69;
+    color: #333;
+    border-radius: 50%;
+    padding: 2px 7px;
+    font-size: 0.8rem;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    animation: bounceIn 0.5s ease-out;
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Mobile Menu Icon */
+.menu-icon {
+    display: none; /* Hidden by default on larger screens */
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.menu-icon:hover {
+    transform: scale(1.1);
+}
+
+/* Hero Section (if applicable, e.g., on home.html) */
+.hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('hero-bg.jpg') no-repeat center center/cover; /* Placeholder for hero-bg.jpg */
+    color: white;
+    text-align: center;
+    padding: 8rem 2rem;
+    height: 70vh; /* Adjust height as needed */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden; /* For particles or other overlay effects */
+}
+
+.hero-massage {
+    max-width: 800px;
+    animation: fadeInScale 1.2s ease-out forwards;
+    opacity: 0; /* Start hidden for animation */
+    transform: scale(0.9); /* Start slightly scaled down */
+}
+
+@keyframes fadeInScale {
+    0% {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.hero-massage h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    line-height: 1.2;
+}
+
+.hero-massage p {
+    font-size: 1.4rem;
+    margin-bottom: 2.5rem;
+    line-height: 1.5;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.shop-now-btn {
+    background-color: #febd69;
+    color: #333;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    display: inline-block;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.shop-now-btn:hover {
+    background-color: #f7a840;
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Product Section - General Styling (used by home.html, product.html, wishlist.html) */
+.product-section {
+    padding: 4rem 2rem;
+    text-align: center;
+    background-color: #fcfcfc;
+}
+
+.product-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: #232f3e;
+    position: relative;
+    display: inline-block;
+}
+
+.product-section h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: #febd69;
+    border-radius: 2px;
+}
+
+/* Product Grid (used by product.html and wishlist.html) */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+/* Product Card (general styles for product.html and wishlist.html) */
+.product-card {
+    background-color: white;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+    border: 1px solid #eee;
+    opacity: 0; /* Hidden for Intersection Observer animation */
+    transform: translateY(20px); /* Start slightly down */
+}
+
+/* Animation for product cards when they enter viewport */
+.product-card.animate-in {
+    animation: slideInUp 0.8s ease-out forwards;
+}
+
+@keyframes slideInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.product-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    border-color: #febd69;
+}
+
+.product-card .product-image {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.product-card .product-image img {
+    max-width: 100%;
+    height: 180px; /* Consistent image height */
+    object-fit: contain; /* Ensures entire image is visible */
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto; /* Center image */
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image img {
+    transform: scale(1.05);
+}
+
+.product-card .product-info {
+    padding: 0.5rem 0;
+}
+
+.product-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: #232f3e;
+}
+
+.product-card .price {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #27ae60; /* Price color */
+    margin-bottom: 0.8rem;
+}
+
+.product-card .add-to-cart-btn,
+.product-card .add-cart-btn { /* Combined for consistency */
+    background-color: #007bff;
+    color: white;
+    padding: 0.7rem 1.2rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.product-card .add-to-cart-btn:hover,
+.product-card .add-cart-btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.product-card .add-to-cart-btn:active,
+.product-card .add-cart-btn:active {
+    transform: translateY(0);
+    background-color: #004085;
+}
+
+.product-card .rating {
+    font-size: 0.9rem;
+    color: #f39c12; /* Star color */
+    margin-top: 0.5rem;
+}
+
+.product-card .wishlist-icon,
+.product-card .wishlist-btn { /* Combined for consistency */
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    z-index: 10;
+}
+
+.product-card .wishlist-icon:hover,
+.product-card .wishlist-btn:hover {
+    background-color: rgba(255, 255, 255, 1);
+    transform: scale(1.1);
+}
+
+.product-card .wishlist-icon i,
+.product-card .wishlist-btn i {
+    color: #ccc;
+    font-size: 1.3rem;
+    transition: color 0.3s ease;
+}
+
+.product-card .wishlist-icon:hover i,
+.product-card .wishlist-btn:hover i {
+    color: #e74c3c; /* Red on hover */
+}
+
+.product-card .wishlist-icon.added i,
+.product-card .wishlist-btn.added i {
+    color: #e74c3c; /* Red when added */
+    animation: heartBeat 0.6s ease-in-out;
+}
+
+@keyframes heartBeat {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.25); }
+    50% { transform: scale(1.15); }
+    70% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* "See More" link within product cards */
+.product-card a p {
+    font-size: 0.9rem;
+    color: #007bff;
+    margin-top: 5px;
+    transition: color 0.3s ease;
+}
+
+.product-card a p:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* Wishlist Section Specific Styles */
+.wishlist-section {
+    padding-bottom: 6rem; /* Add more space below for the footer */
+}
+
+/* Style for empty wishlist message */
+#wishlist-container p {
+    font-size: 1.3rem;
+    color: #777;
+    margin-top: 3rem;
+    text-align: center;
+    width: 100%; /* Ensure it centers in the grid container */
+    grid-column: 1 / -1; /* Make it span all columns */
+}
+
+/* Order Page Specific Styles */
+.order-page-content {
+    padding-bottom: 6rem;
+}
+
+.order-form-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2.5rem;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    align-items: center;
+}
+
+.order-form-container input {
+    width: calc(100% - 2rem); /* Account for padding */
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.order-form-container input:focus {
+    outline: none;
+    border-color: #febd69;
+    box-shadow: 0 0 0 3px rgba(254, 189, 105, 0.5);
+}
+
+.order-form-container button {
+    background-color: #28a745; /* Green for "Place Order" */
+    color: white;
+    padding: 1rem 2.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    width: fit-content;
+    margin-top: 1rem;
+}
+
+.order-form-container button:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(40, 167, 69, 0.2);
+}
+
+.order-form-container button:active {
+    transform: translateY(0);
+    background-color: #1e7e34;
+}
+
+.order-list {
+    max-width: 800px;
+    margin: 3rem auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.order-card {
+    background-color: white;
+    border: 1px solid #eee;
+    border-left: 5px solid #febd69; /* Accent border */
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    text-align: left;
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+    animation: fadeIn 0.8s ease-out forwards; /* Animation for new orders */
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.order-card.animate-in {
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+/* Reusing fadeIn for order cards */
+/* @keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+} */
+
+.order-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.order-card h4 {
+    font-size: 1.3rem;
+    color: #232f3e;
+    margin-bottom: 0.5rem;
+}
+
+.order-card p {
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 0.4rem;
+    line-height: 1.4;
+}
+
+.order-card .order-status {
+    font-weight: bold;
+    color: #007bff;
+    margin-top: 0.8rem;
+}
+
+.order-card .return-button {
+    background-color: #dc3545;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.order-card .return-button:hover {
+    background-color: #c82333;
+    transform: translateY(-1px);
+}
+
+.order-card .return-button:active {
+    transform: translateY(0);
+    background-color: #bb2d3b;
+}
+
+.order-list .empty-message {
+    text-align: center;
+    color: #777;
+    font-size: 1.2rem;
+    margin-top: 2rem;
+}
+
+/* About Us Page Specific Styles */
+.about-page-content {
+    padding-bottom: 6rem; /* Ensures space above footer */
+}
+
+.about-hero {
+    background: linear-gradient(rgba(35, 47, 62, 0.7), rgba(35, 47, 62, 0.7)), url('about-hero-bg.jpg') no-repeat center center/cover; /* Placeholder for about-hero-bg.jpg */
+    color: white;
+    text-align: center;
+    padding: 6rem 2rem;
+    margin-bottom: 4rem;
+    box-shadow: inset 0 -10px 20px rgba(0,0,0,0.1);
+}
+
+.about-hero-text h1 {
+    font-size: 3.8rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.4);
+    color: #febd69;
+}
+
+.about-hero-text p {
+    font-size: 1.5rem;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.5;
+}
+
+.content-block {
+    padding: 3rem 2rem;
+    margin-bottom: 3rem;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0; /* Hidden for animation */
+    transform: translateY(30px); /* Start slightly down */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Default transition */
+}
+
+/* Specific animation classes controlled by JS */
+.animate-fade-in {
+    opacity: 0;
+    animation: fadeIn 1s ease-out forwards;
+}
+
+.animate-slide-up {
+    opacity: 0;
+    transform: translateY(50px);
+    animation: slideInUp 0.8s ease-out forwards;
+}
+
+/* Keyframes already defined in main CSS, but useful reminder for new content */
+/* @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes slideInUp {
+    0% { opacity: 0; transform: translateY(50px); }
+    100% { opacity: 1; transform: translateY(0); }
+} */
+
+
+.content-block:last-of-type {
+    margin-bottom: 4rem; /* Ensure last block also has padding above footer */
+}
+
+.about-container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.about-container h2 {
+    font-size: 2.2rem;
+    color: #232f3e;
+    margin-bottom: 1.5rem;
+    position: relative;
+    display: inline-flex; /* Use flex to align icon and text */
+    align-items: center;
+    gap: 10px;
+}
+
+.about-container h2 i {
+    color: #febd69;
+    font-size: 1.8rem;
+}
+
+.about-container h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: #febd69;
+    border-radius: 2px;
+}
+
+.about-container p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 1.5rem;
+}
+
+.about-container p strong {
+    color: #232f3e;
+}
+
+.value-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.value-card {
+    background-color: #f8f8f8;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0; /* Hidden for animation */
+    transform: scale(0.9); /* Start scaled down */
+}
+
+.value-card.animate-scale-in {
+    animation: scaleIn 0.7s ease-out forwards;
+}
+
+@keyframes scaleIn {
+    0% { opacity: 0; transform: scale(0.9); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+
+.value-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+
+.value-card i {
+    font-size: 3rem;
+    color: #febd69;
+    margin-bottom: 1rem;
+}
+
+.value-card h3 {
+    font-size: 1.4rem;
+    color: #232f3e;
+    margin-bottom: 0.8rem;
+}
+
+.value-card p {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.5;
+}
+
+.team-avatars {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.team-member {
+    background-color: #f0f0f0;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #333;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0; /* Hidden for animation */
+    transform: scale(0.8); /* Start scaled down */
+}
+
+.team-member.animate-pop-in {
+    animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+}
+
+@keyframes popIn {
+    0% { opacity: 0; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.1); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+.team-member:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+.team-member i {
+    font-size: 3.5rem;
+    color: #232f3e;
+    margin-bottom: 5px;
+}
+
+.about-call-to-action {
+    background: linear-gradient(135deg, #febd69, #f7a840);
+    color: #333;
+    padding: 3rem 2rem;
+    border-radius: 12px;
+    margin-bottom: 4rem; /* Match other content blocks */
+}
+
+.about-call-to-action h2 {
+    color: #232f3e;
+    margin-bottom: 1rem;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.about-call-to-action p {
+    color: #555;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+
+/* Reusing shop-now-btn from home.html, ensure its styles are suitable */
+.about-call-to-action .shop-now-btn {
+    background-color: #232f3e; /* Darker button for contrast */
+    color: white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.about-call-to-action .shop-now-btn:hover {
+    background-color: #1a242f;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Responsive adjustments specific to About page */
+@media (max-width: 768px) {
+    .about-hero {
+        padding: 4rem 1rem;
+    }
+    .about-hero-text h1 {
+        font-size: 2.8rem;
+    }
+    .about-hero-text p {
+        font-size: 1.2rem;
+    }
+    .content-block {
+        padding: 2rem 1rem;
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+    .about-container h2 {
+        font-size: 1.8rem;
+        flex-direction: column;
+        gap: 5px;
+    }
+    .about-container h2 i {
+        font-size: 1.5rem;
+    }
+    .value-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    .team-member {
+        width: 100px;
+        height: 100px;
+        font-size: 0.8rem;
+    }
+    .team-member i {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-hero-text h1 {
+        font-size: 2rem;
+    }
+    .about-hero-text p {
+        font-size: 1rem;
+    }
+    .content-block {
+        padding: 1.5rem;
+    }
+    .about-container h2 {
+        font-size: 1.5rem;
+    }
+    .about-container p {
+        font-size: 0.95rem;
+    }
+}
+
+/* Login/Sign Up Page Specific Styles */
+.login-page-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 120px); /* Adjust based on navbar/footer height */
+    padding: 2rem;
+    background: linear-gradient(135deg, #f0f4f8, #e0e8f0); /* Soft gradient background */
+}
+
+.login-container, .signup-container {
+    background-color: white;
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
+}
+
+/* Hidden state for forms for transitions */
+.login-container.hidden, .signup-container.hidden {
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none; /* Disable interaction when hidden */
+    position: absolute; /* Take out of flow for smooth transition */
+}
+.login-container:not(.hidden), .signup-container:not(.hidden) {
+    opacity: 1;
+    transform: translateY(0);
+    position: relative;
+    pointer-events: all;
+}
+
+
+.login-header, .signup-header {
+    margin-bottom: 2rem;
+}
+
+.login-header h2, .signup-header h2 {
+    font-size: 2.5rem;
+    color: #232f3e;
+    margin-bottom: 0.8rem;
+}
+
+.login-header p, .signup-header p {
+    color: #777;
+    font-size: 1rem;
+}
+
+.login-form, .signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-weight: bold;
+    font-size: 0.95rem;
+}
+
+.form-group label i {
+    margin-right: 8px;
+    color: #febd69; /* Icon color */
+}
+
+.form-group input {
+    width: calc(100% - 24px); /* Account for padding */
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #febd69;
+    box-shadow: 0 0 0 3px rgba(254, 189, 105, 0.5);
+}
+
+.login-btn, .signup-btn {
+    background-color: #febd69;
+    color: #232f3e;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: 1.5rem;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.login-btn:hover, .signup-btn:hover {
+    background-color: #f7a840;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.login-btn:active, .signup-btn:active {
+    transform: translateY(0);
+    background-color: #d18f3a;
+}
+
+.login-footer, .signup-footer {
+    margin-top: 2rem;
+    font-size: 0.95rem;
+    color: #666;
+}
+
+.login-footer a, .signup-footer a {
+    color: #007bff;
+    font-weight: bold;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.login-footer a:hover, .signup-footer a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.form-message {
+    margin-top: 1rem;
+    font-weight: bold;
+    color: red; /* Default for error */
+    display: none; /* Hidden by default */
+    animation: fadeInOutMsg 3s forwards; /* Reusing for form messages */
+}
+
+/* Specific styling for success messages */
+.form-message.success {
+    color: #28a745;
+}
+</style>
+<body>
+    <header class="navbar">
+        <div class="logo">MiniShop</div>
+        <nav class="nav-links" id="navLinks">
+
+            <a href="home.html">Home</a>
+
+            <div class="nav-search">
+                <select class="search-select">
+                    <option>All</option>
+                </select>
+                <input placeholder="search Minishop" class="search-input" id="searchInput">
+                <div class="search-icon">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+            </div>
+
+            <div class="nav-singin border">
+                <a href="login.html" class="active-nav-link"><i class="fa fa-user"></i> Login</a>
+                <p class="nav-second">Account & Lists</p>
+            </div>
+
+            <a href="product.html">Product</a>
+
+            <a href="order.html">Order
+                <p class="return">Return</p>
+            </a>
+
+            <a href="wishlist.html"><i class="fa-solid fa-heart"></i>Wishlist</a>
+
+            <a href="about.html">About</a>
+
+            <a href="#" id="cart-button"><i class="fa-solid fa-cart-shopping"></i> Cart (<span
+                        id="cart-count">0</span>)</a>
+        </nav>
+        <div class="menu-icon" id="menuIcon">&#9776;</div>
+    </header>
+    <main class="login-page-content">
+        <div class="login-container">
+            <div class="login-header">
+                <h2>Welcome Back!</h2>
+                <p>Sign in to access your MiniShop account.</p>
+            </div>
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="username"><i class="fas fa-envelope"></i> Email or Username</label>
+                    <input type="text" id="username" placeholder="Enter your email or username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password"><i class="fas fa-lock"></i> Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="login-btn">Login</button>
+                <p class="form-message" id="loginMessage"></p>
+            </form>
+            <div class="login-footer">
+                <p>Don't have an account? <a href="#" id="showSignUp">Sign Up</a></p>
+                <p><a href="#">Forgot Password?</a></p>
+            </div>
+        </div>
+
+        <div class="signup-container hidden">
+            <div class="signup-header">
+                <h2>Join MiniShop!</h2>
+                <p>Create your account in seconds.</p>
+            </div>
+            <form id="signUpForm" class="signup-form">
+                <div class="form-group">
+                    <label for="signupUsername"><i class="fas fa-user"></i> Full Name</label>
+                    <input type="text" id="signupUsername" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail"><i class="fas fa-envelope"></i> Email Address</label>
+                    <input type="email" id="signupEmail" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword"><i class="fas fa-lock"></i> Password</label>
+                    <input type="password" id="signupPassword" placeholder="Create a password" required>
+                </div>
+                <button type="submit" class="signup-btn">Sign Up</button>
+                <p class="form-message" id="signUpMessage"></p>
+            </form>
+            <div class="signup-footer">
+                <p>Already have an account? <a href="#" id="showLogin">Login</a></p>
+            </div>
+        </div>
+    </main>
+
+    <div id="cart-modal" class="cart-modal hidden">
+        <div class="cart-content">
+            <h3>Your Cart</h3>
+            <ul id="cart-items-list"></ul>
+            <div class="shipping-address">
+                <h4>Shipping Address:</h4>
+                <input type="text" placeholder="Full Name" required><br>
+                <input type="text" placeholder="Phone Number" required><br>
+                <input type="text" placeholder="Address Line 1" required><br>
+                <input type="text" placeholder="Address Line 2"><br>
+                <input type="text" placeholder="City" required><br>
+                <input type="text" placeholder="Pincode" required><br>
+                <input type="text" placeholder="State" required><br>
+            </div>
+
+            <div id="payment-method-section">
+                <h4>Select Payment Method:</h4>
+                <label><input type="radio" name="payment-method" value="cod" checked> Cash on Delivery</label><br>
+                <label><input type="radio" name="payment-method" value="online"> Online Payment</label>
+            </div>
+
+            <div id="online-payment-options" style="display:none; margin-top: 10px;">
+                <p>Select Payment App:</p>
+                <label><input type="radio" name="payment-app" value="phonepe"> PhonePe</label><br>
+                <label><input type="radio" name="payment-app" value="paytm"> Paytm</label><br>
+                <label><input type="radio" name="payment-app" value="gpay"> Google Pay</label><br>
+            </div>
+
+            <div id="cart-footer" style="margin-top: 15px;">
+                <button id="checkout-btn">Proceed to Pay</button>
+                <button id="close-cart">Close</button>
+            </div>
+            <p id="payment-message" style="margin-top:10px;"></p>
+
+        </div>
+    </div>
+
+    <footer>
+        <div class="foot-panel1">Back to top</div>
+        <div class="foot-panel2">
+            <ul>
+                <p>Get to Know Us</p>
+                <a>Shop with Us</a>
+                <a>Categories</a>
+                <a>Deals</a>
+                <a>Gift Cards</a>
+                <a>About Minishop</a>
+            </ul>
+            <ul>
+                <p>Help & Support</p>
+                <a>Customer Service</a>
+                <a>Returns</a>
+                <a>Shipping</a>
+                <a>FAQs</a>
+            </ul>
+            <ul>
+                <p>Business</p>
+                <a>Sell on MiniShop</a>
+                <a>Advertise</a>
+                <a>Affiliates</a>
+                <a>Partners</a>
+            </ul>
+            <ul>
+                <p>Legal</p>
+                <a>Privacy Policy</a>
+                <a>Terms of Service</a>
+                <a>Cookie Settings</a>
+            </ul>
+        </div>
+        <div class="foot-panel3">
+            <div class="logo">MiniShop</div>
+        </div>
+        <div class="foot-panel4">
+            <div class="pages">
+                <a>Conditions of Use</a>
+                <a>Privacy Notice</a>
+                <a>Your Ads Privacy Choices</a>
+            </div>
+            <div class="copyright">
+                © 1996-2025, Minishop.com, Inc. or its affiliates
+            </div>
+        </div>
+    </footer>
+    </body>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // --- Navbar & Cart Modal setup (copied for self-sufficiency on this page) ---
+    // These elements need to be initialized even on the login page for the navbar/cart to work
+    const navLinks = document.getElementById('navLinks');
+    const menuIcon = document.getElementById('menuIcon');
+    const cartButton = document.getElementById('cart-button');
+    const cartModal = document.getElementById('cart-modal');
+    const closeCartButton = document.getElementById('close-cart');
+    const cartItemsList = document.getElementById('cart-items-list');
+    const cartCountSpan = document.getElementById('cart-count');
+    const checkoutBtn = document.getElementById('checkout-btn');
+    const paymentMethodRadios = document.querySelectorAll('input[name="payment-method"]');
+    const onlinePaymentOptions = document.getElementById('online-payment-options');
+    const paymentMessage = document.getElementById('payment-message'); // This is the global message element
+
+    let cart = JSON.parse(localStorage.getItem('minishopCart')) || [];
+
+    function saveCart() {
+        localStorage.setItem('minishopCart', JSON.stringify(cart));
+    }
+
+    function updateCartCount() {
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        cartCountSpan.textContent = totalItems;
+        if (totalItems > 0) {
+            cartCountSpan.classList.add('visible');
+        } else {
+            cartCountSpan.classList.remove('visible');
+        }
+    }
+
+    function renderCartItems() {
+        cartItemsList.innerHTML = '';
+        if (cart.length === 0) {
+            cartItemsList.innerHTML = '<li style="text-align: center; color: #777;">Your cart is empty.</li>';
+        } else {
+            cart.forEach(item => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <span>${item.name} (x${item.quantity}) - ₹${(item.price * item.quantity).toLocaleString()}</span>
+                    <button class="remove-item" data-name="${item.name}">Remove</button>
+                `;
+                cartItemsList.appendChild(li);
+            });
+        }
+    }
+
+    // Global message display function (from main script.js)
+    function showGlobalMessage(message, isSuccess = true) {
+        if (paymentMessage) {
+            paymentMessage.textContent = message;
+            paymentMessage.style.color = isSuccess ? '#28a745' : '#dc3545';
+            paymentMessage.style.display = 'block';
+            setTimeout(() => {
+                paymentMessage.style.display = 'none';
+                paymentMessage.textContent = '';
+            }, 3000);
+        } else {
+            console.log("Message (no global payment-message element):", message);
+        }
+    }
+
+    // Navbar & Cart Modal Event Listeners
+    menuIcon.addEventListener('click', () => {
+        navLinks.classList.toggle('open');
+        menuIcon.classList.toggle('active');
+    });
+
+    cartButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        renderCartItems();
+        cartModal.classList.add('visible');
+    });
+
+    closeCartButton.addEventListener('click', () => {
+        cartModal.classList.remove('visible');
+    });
+
+    cartModal.addEventListener('click', (event) => {
+        if (event.target === cartModal) {
+            cartModal.classList.remove('visible');
+        }
+    });
+
+    cartItemsList.addEventListener('click', (event) => {
+        if (event.target.classList.contains('remove-item')) {
+            const productName = event.target.dataset.name;
+            cart = cart.filter(item => item.name !== productName);
+            saveCart();
+            renderCartItems();
+            updateCartCount();
+            showGlobalMessage(`${productName} removed from cart.`, false);
+        }
+    });
+
+    paymentMethodRadios.forEach(radio => {
+        radio.addEventListener('change', (event) => {
+            if (event.target.value === 'online') {
+                onlinePaymentOptions.style.display = 'block';
+                onlinePaymentOptions.style.opacity = 0;
+                onlinePaymentOptions.style.transform = 'translateY(10px)';
+                setTimeout(() => {
+                    onlinePaymentOptions.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                    onlinePaymentOptions.style.opacity = 1;
+                    onlinePaymentOptions.style.transform = 'translateY(0)';
+                }, 10);
+            } else {
+                onlinePaymentOptions.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                onlinePaymentOptions.style.opacity = 0;
+                onlinePaymentOptions.style.transform = 'translateY(10px)';
+                setTimeout(() => {
+                    onlinePaymentOptions.style.display = 'none';
+                }, 300);
+            }
+        });
+    });
+
+    checkoutBtn.addEventListener('click', () => {
+        const fullName = document.querySelector('.shipping-address input[placeholder="Full Name"]').value;
+        const phoneNumber = document.querySelector('.shipping-address input[placeholder="Phone Number"]').value;
+        const addressLine1 = document.querySelector('.shipping-address input[placeholder="Address Line 1"]').value;
+        const city = document.querySelector('.shipping-address input[placeholder="City"]').value;
+        const pincode = document.querySelector('.shipping-address input[placeholder="Pincode"]').value;
+        const state = document.querySelector('.shipping-address input[placeholder="State"]').value;
+        const selectedPaymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
+
+        if (!fullName || !phoneNumber || !addressLine1 || !city || !pincode || !state) {
+            showGlobalMessage('Please fill in all required shipping address fields.', false);
+            return;
+        }
+
+        if (cart.length === 0) {
+            showGlobalMessage('Your cart is empty. Please add items before proceeding.', false);
+            return;
+        }
+
+        let paymentConfirmationMessage = `Order placed successfully!`;
+
+        if (selectedPaymentMethod === 'cod') {
+            paymentConfirmationMessage += ` Payment method: Cash on Delivery.`;
+        } else if (selectedPaymentMethod === 'online') {
+            const selectedPaymentApp = document.querySelector('input[name="payment-app"]:checked');
+            if (!selectedPaymentApp) {
+                showGlobalMessage('Please select an online payment app.', false);
+                return;
+            }
+            paymentConfirmationMessage += ` Payment method: Online via ${selectedPaymentApp.value}.`;
+        }
+
+        showGlobalMessage(paymentConfirmationMessage, true);
+
+        cart = [];
+        saveCart();
+        updateCartCount();
+        renderCartItems();
+
+        setTimeout(() => {
+            cartModal.classList.remove('visible');
+        }, 2000);
+    });
+
+    // Initial cart count update on load
+    updateCartCount();
+
+    // --- Login/Sign Up Page specific logic ---
+
+    const loginContainer = document.querySelector('.login-container');
+    const signupContainer = document.querySelector('.signup-container');
+    const showSignUpLink = document.getElementById('showSignUp');
+    const showLoginLink = document.getElementById('showLogin');
+    const loginForm = document.getElementById('loginForm');
+    const signUpForm = document.getElementById('signUpForm');
+    const loginMessage = document.getElementById('loginMessage'); // Message for login form
+    const signUpMessage = document.getElementById('signUpMessage'); // Message for sign up form
+
+    // Function to show a form-specific message
+    function showFormMessage(element, message, isSuccess = true) {
+        element.textContent = message;
+        element.style.color = isSuccess ? '#28a745' : '#dc3545';
+        element.style.display = 'block';
+        element.classList.toggle('success', isSuccess); // Add/remove success class
+        // Re-trigger animation if element is already shown
+        element.style.animation = 'none'; // Reset animation
+        element.offsetHeight; // Trigger reflow
+        element.style.animation = null; // Re-apply animation
+        setTimeout(() => {
+            element.style.display = 'none';
+            element.textContent = '';
+            element.classList.remove('success');
+        }, 3000); // Hide after 3 seconds
+    }
+
+    // Toggle between login and sign-up forms
+    showSignUpLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        loginContainer.classList.add('hidden');
+        signupContainer.classList.remove('hidden');
+        // Clear messages when switching forms
+        loginMessage.style.display = 'none';
+        signUpMessage.style.display = 'none';
+        // Clear form fields
+        loginForm.reset();
+        signUpForm.reset();
+    });
+
+    showLoginLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        signupContainer.classList.add('hidden');
+        loginContainer.classList.remove('hidden');
+        // Clear messages when switching forms
+        loginMessage.style.display = 'none';
+        signUpMessage.style.display = 'none';
+        // Clear form fields
+        loginForm.reset();
+        signUpForm.reset();
+    });
+
+    // Handle Login Form Submission
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const username = loginForm.elements['username'].value.trim();
+        const password = loginForm.elements['password'].value.trim();
+
+        if (!username || !password) {
+            showFormMessage(loginMessage, 'Please enter both username/email and password.', false);
+            return;
+        }
+
+        // In a real app, you'd send this to a server for authentication.
+        // For this demo, check against a dummy user in local storage.
+        const storedUsers = JSON.parse(localStorage.getItem('minishopUsers')) || [];
+        const user = storedUsers.find(u => (u.username === username || u.email === username) && u.password === password);
+
+        if (user) {
+            showFormMessage(loginMessage, 'Login successful! Redirecting to home...', true);
+            // Simulate successful login, e.g., redirect to home page
+            setTimeout(() => {
+                window.location.href = 'home.html';
+            }, 1500);
+        } else {
+            showFormMessage(loginMessage, 'Invalid username/email or password.', false);
+        }
+    });
+
+    // Handle Sign Up Form Submission
+    signUpForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const fullname = signUpForm.elements['signupUsername'].value.trim();
+        const email = signUpForm.elements['signupEmail'].value.trim();
+        const password = signUpForm.elements['signupPassword'].value.trim();
+
+        if (!fullname || !email || !password) {
+            showFormMessage(signUpMessage, 'Please fill in all fields.', false);
+            return;
+        }
+
+        if (!email.includes('@') || !email.includes('.')) {
+            showFormMessage(signUpMessage, 'Please enter a valid email address.', false);
+            return;
+        }
+
+        if (password.length < 6) {
+            showFormMessage(signUpMessage, 'Password must be at least 6 characters long.', false);
+            return;
+        }
+
+        let storedUsers = JSON.parse(localStorage.getItem('minishopUsers')) || [];
+
+        // Check if user already exists (by email)
+        if (storedUsers.some(u => u.email === email)) {
+            showFormMessage(signUpMessage, 'An account with this email already exists. Please login.', false);
+            return;
+        }
+
+        const newUser = {
+            username: fullname, // For simplicity, using full name as username
+            email: email,
+            password: password // In real app, hash and salt passwords!
+        };
+
+        storedUsers.push(newUser);
+        localStorage.setItem('minishopUsers', JSON.stringify(storedUsers));
+
+        showFormMessage(signUpMessage, 'Account created successfully! You can now log in.', true);
+
+        // Optionally, switch back to login form after successful sign up
+        setTimeout(() => {
+            signupContainer.classList.add('hidden');
+            loginContainer.classList.remove('hidden');
+            loginForm.elements['username'].value = email; // Pre-fill username for convenience
+            loginForm.elements['password'].value = ''; // Clear password field
+            signUpForm.reset(); // Clear signup form
+        }, 2000);
+    });
+});
+</script>
+</html>
